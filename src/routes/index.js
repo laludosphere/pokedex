@@ -1,6 +1,6 @@
 import express from "express"
 import routerPokemon from "./pokemon.route.js"
-import routerUser from "./User.route.js"
+import routerUser from "./user.route.js"
 
 
 const router = express.Router();
