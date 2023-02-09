@@ -6,26 +6,16 @@ import pokemons from '../config/mock-pokemon.js'
 
 export const syncModels = async () => {
     try {
-        await User.sync({force: true})
-        
-        const user = await User.create({
-            email:"pikachu@gmail.com",
-            password: "123"
-        })
-        console.log('User created', user.toJSON());
-        await Pokemon.sync({force:true})
-        pokemons.map(async pokemon => {
-            await Pokemon.create({
-                name: pokemon.name,
-                hp: pokemon.hp,
-                cp: pokemon.cp,
-                picture: pokemon.picture,
-                types: pokemon.types
-            })
-            // console.log(pokemon)
-        })
-        
-        
+        await User.sync()
+        await Pokemon.sync()
+        console.log('ok')
+        await Pokemon.bulkCreate(pokemons.map(pokemon => ({
+            name: pokemon.name,
+            hp: pokemon.hp,
+            cp: pokemon.cp,
+            picture: pokemon.picture,
+            types: pokemon.types
+        })))        
     } catch (error) {
         console.error('Error while syncing model', error)
     }
